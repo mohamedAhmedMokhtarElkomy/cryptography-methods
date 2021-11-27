@@ -6,7 +6,6 @@ class TranspositionTechniques {
   }
 
   String railFenceCipher(String plain, int depth) {
-
     String cipher = "";
     plain = _filterText(plain);
 
@@ -44,19 +43,71 @@ class TranspositionTechniques {
       if (depthCount == 0 || depthCount == depth - 1) moveDown = !moveDown;
     }
 
-    for (int i = 0; i < depth; i++)
-      cipher += railFence[i];
+    for (int i = 0; i < depth; i++) cipher += railFence[i];
     print(cipher);
     return cipher;
   }
 
-  String railFenceDecryption(String cipher, int depth){
+  String railFenceDecryption(String cipher, int depth) {
     String plain = "";
     var railFence = List<String>.filled(depth, "", growable: false);
-
 
     return plain;
   }
 
-  
+  String rowTranspositionEncryption(String plain, String key) {
+
+    plain = _filterText(plain);
+    String cipher = "";
+
+    int noRows = plain.length ~/ key.length;
+    if (plain.length % key.length != 0)
+      noRows++;
+
+    var table = new List<String>.filled(noRows, "", growable: false);
+
+
+    for (int i = 0; i < noRows; i++) {
+      for (int j = 0; j < key.length; j++) {
+        if ((i * key.length) + j < plain.length)
+          table[i] += plain[(i * key.length) + j];
+        else
+          table[i] += "x";
+      }
+    }
+
+    int minIndex = 0;
+    for (int k = 0; k < key.length; k++) {
+      for (int i = 0; i < key.length; i++)
+        if (key.codeUnitAt(i) < key.codeUnitAt(minIndex))
+          minIndex = i;
+
+      for (int j = 0; j < noRows; j++)
+        cipher += table[j][minIndex];
+      key = key.replaceFirst(RegExp(key[minIndex]), '|');
+    }
+
+    return cipher;
+
+    // var minCol = key[0];
+    // for(int i = 0; i < key.length; i++){
+    //   if()
+    // }
+
+    // String finished = "";
+    // int minValue;
+    // for (int k = 0; k < key.length; k++) {
+    //   minValue = 200;
+    //   for (int i = 0; i < key.length; i++) {
+    //     if (key.codeUnitAt(i) < minValue && !finished.contains(key[i])) {
+    //       minValue = key.codeUnitAt(i);
+    //     }
+    //   }
+    //   finished += String.fromCharCode(minValue);
+    //   int indexMin = key.indexOf(String.fromCharCode(minValue));
+    //   for (int j = 0; j < noRows; j++) {
+    //     cipher += table[j][indexMin];
+    //   }
+    // }
+  }
 }

@@ -18,7 +18,8 @@ class MethodScreen extends StatelessWidget {
       // child: Text(SubstitutionTechniques.VigenereAutoKeyCipher("wearediscoveredsaveyourself", "deceptive")),
       // child: Text(SubstitutionTechniques.ceaserToPlain("abcde", 7)),
       // child: Text(SubstitutionTechniques.VigenereAutoKeyPlain("ZICVTWQNGKZEIIGASXSTSLVVWLA", "deceptive")),
-      child: Text(t.railFenceCipher("GeeksforGeeks", 3)),
+      // child: Text(t.railFenceCipher("GeeksforGeeks", 3)),
+      child: Text(t.rowTranspositionEncryption("Traffic Analysis is the most harmful attack", "security")),
     ));
   }
 }
