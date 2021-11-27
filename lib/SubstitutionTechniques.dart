@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class SubstitutionTechniques {
   static String _filterText(String text) {
     text = text.toUpperCase();
