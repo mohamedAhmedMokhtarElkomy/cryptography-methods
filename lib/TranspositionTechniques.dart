@@ -56,16 +56,14 @@ class TranspositionTechniques {
   }
 
   String rowTranspositionEncryption(String plain, String key) {
-
     plain = _filterText(plain);
+    key = _filterText(key);
     String cipher = "";
 
     int noRows = plain.length ~/ key.length;
-    if (plain.length % key.length != 0)
-      noRows++;
+    if (plain.length % key.length != 0) noRows++;
 
     var table = new List<String>.filled(noRows, "", growable: false);
-
 
     for (int i = 0; i < noRows; i++) {
       for (int j = 0; j < key.length; j++) {
@@ -79,14 +77,13 @@ class TranspositionTechniques {
     int minIndex = 0;
     for (int k = 0; k < key.length; k++) {
       for (int i = 0; i < key.length; i++)
-        if (key.codeUnitAt(i) < key.codeUnitAt(minIndex))
-          minIndex = i;
+        if (key.codeUnitAt(i) < key.codeUnitAt(minIndex)) minIndex = i;
 
-      for (int j = 0; j < noRows; j++)
-        cipher += table[j][minIndex];
+      for (int j = 0; j < noRows; j++) cipher += table[j][minIndex];
       key = key.replaceFirst(RegExp(key[minIndex]), '|');
     }
 
+    print(cipher);
     return cipher;
 
     // var minCol = key[0];
@@ -109,5 +106,38 @@ class TranspositionTechniques {
     //     cipher += table[j][indexMin];
     //   }
     // }
+  }
+
+  String rowTranspositionDecryption(String cipher, String key) {
+    cipher = _filterText(cipher);
+    key = _filterText(key);
+    String plain = "";
+
+    int noRows = cipher.length ~/ key.length;
+    if (plain.length % key.length != 0) noRows++;
+
+    // var table = new List<String>.filled(noRows, "", growable: false);
+    var table =
+    new List.generate(noRows, (_) => new List.filled(key.length, "", growable: false));
+
+    int minIndex = 0;
+    for (int k = 0; k < cipher.length; k++) {
+      for (int i = 0; i < key.length; i++)
+        if (key.codeUnitAt(i) < key.codeUnitAt(minIndex)) minIndex = i;
+
+      for (int j = 0; j < noRows; j++) {
+        table[j][minIndex] = cipher[k];
+        k++;
+        print(table);
+      }
+      k--;
+      key = key.replaceFirst(RegExp(key[minIndex]), '|');
+    }
+
+    for(int i = 0; i < table.length; i++)
+      plain += table[i].join();
+
+    print (plain);
+    return plain;
   }
 }
