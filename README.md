@@ -2,7 +2,7 @@
 
 cryptography is study of encryption.
 this project is a cross platform mobile application using flutter framework which use encryption methods to encrypt text.
-include 4 methods: Ceaser, Vigener, RailFence, RowTransposition
+project includes 4 methods: Ceaser, Vigener, RailFence, RowTransposition
 
 ## Getting Started
 
